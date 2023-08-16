@@ -12,3 +12,22 @@ provider "random" {}
 resource "random_id" "rando" {
   byte_length = 8
 }
+
+resource "random_pet" "server" {
+  keepers {
+    image_id = var.image_id
+  }
+}
+
+variable "image_id" {
+  type = string
+  description = "The id of the machine image (AMI) to use for the server."
+}
+
+variable "docker_ports" {
+  type = list(object({
+    internal = number
+    external = number
+    protocol = string
+  }))
+}
